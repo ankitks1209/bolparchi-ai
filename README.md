@@ -2,6 +2,8 @@
 
 **Bolo. Dekho. Confirm karo.**
 
+> **Work in progress — local prototype.** Recording, review, corrections and receipt-based saving are implemented. The offline demo uses scripted AI responses; real Gemini extraction and a complete live voice walkthrough are still being verified. This is not a production service.
+
 A voice-assisted service-update prototype for repair technicians. The planned app
 turns a Hinglish update into a reviewed record, asks about missing information,
 and saves only after explicit confirmation.
@@ -99,5 +101,6 @@ evaluation fixtures, and submission documentation here. Review `git status` and
 virtual environments, caches, local databases and generated recordings.
 
 Use fictional data only. Add deliberately selected synthetic evaluation audio later;
-do not commit real customer recordings or credentials. A GitHub repository, remote,
-and publication have not been created by this setup.
+do not commit real customer recordings or credentials. Local source is committed;
+the public GitHub repository is being set up. A public source repository does not
+mean the application is deployed or ready for production use.

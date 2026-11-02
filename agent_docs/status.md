@@ -4,7 +4,9 @@ Updated 2 November 2026. Current checkpoint: the local browser connects typed/re
 
 ## Current task: initial Git commit and GitHub push
 
-Ankit explicitly requested committing and pushing the existing code to GitHub on 2 November. The repository starts on main with no commits and no remote. Prepared 107 source/test/documentation/configuration files; configured credentials and common credential patterns were checked without printing values, with no matches. `.env`, private recordings, databases, artifacts and the virtual environment are ignored. Baseline: 377 tests passed, one existing warning in 1.26s; Ruff lint passed and format reported 77 files already formatted. GitHub destination is awaiting Ankit's answer; no remote push or hosted CI success is claimed yet. This GitHub request does not authorize a website deployment or sharing change to the existing Sites preview.
+Ankit explicitly requested committing and pushing the existing code to GitHub on 2 November. Created initial commit `529e140` on main with 107 source/test/documentation/configuration files. Configured credentials and common credential patterns were checked without printing values, with no matches. `.env`, private recordings, databases, artifacts and the virtual environment are ignored. Baseline: 377 tests passed, one existing warning in 1.26s; Ruff lint passed and format reported 77 files already formatted. A clean temporary archive of only committed files also passed all 377 tests with one warning in 1.49s, using the existing environment.
+
+Ankit chose a public repository with a work-in-progress label and will create it himself; recommended name `bolparchi-ai`. Added a prominent README status explaining fixture responses and pending real Gemini/voice validation. Await the repository URL before setting a remote and pushing. No remote push or hosted CI success is claimed yet. This GitHub request does not authorize a website deployment or sharing change to the existing Sites preview.
 
 ## Previous task: Gemini isolation diagnostic — stopped on plain-generation failure
 
