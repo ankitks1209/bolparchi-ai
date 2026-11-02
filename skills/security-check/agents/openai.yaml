@@ -1,0 +1,7 @@
+interface:
+  display_name: "BolParchi Security Check"
+  short_description: "Apply the BolParchi security check workflow"
+  default_prompt: "Use $security-check for the specified BolParchi task and report evidence."
+
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,7 @@
+interface:
+  display_name: "BolParchi Debug"
+  short_description: "Apply the BolParchi debug workflow"
+  default_prompt: "Use $debug for the specified BolParchi task and report evidence."
+
+policy:
+  allow_implicit_invocation: false

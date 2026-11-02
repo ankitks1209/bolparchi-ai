@@ -1,0 +1,7 @@
+interface:
+  display_name: "BolParchi TDD Feature"
+  short_description: "Apply the BolParchi tdd feature workflow"
+  default_prompt: "Use $tdd-feature for the specified BolParchi task and report evidence."
+
+policy:
+  allow_implicit_invocation: false

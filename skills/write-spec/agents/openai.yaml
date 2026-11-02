@@ -1,0 +1,7 @@
+interface:
+  display_name: "BolParchi Write Spec"
+  short_description: "Apply the BolParchi write spec workflow"
+  default_prompt: "Use $write-spec for the specified BolParchi task and report evidence."
+
+policy:
+  allow_implicit_invocation: false

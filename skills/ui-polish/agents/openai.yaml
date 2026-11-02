@@ -1,0 +1,7 @@
+interface:
+  display_name: "BolParchi UI Polish"
+  short_description: "Apply the BolParchi ui polish workflow"
+  default_prompt: "Use $ui-polish for the specified BolParchi task and report evidence."
+
+policy:
+  allow_implicit_invocation: false

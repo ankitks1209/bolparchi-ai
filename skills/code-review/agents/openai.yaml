@@ -1,0 +1,7 @@
+interface:
+  display_name: "BolParchi Code Review"
+  short_description: "Apply the BolParchi code review workflow"
+  default_prompt: "Use $code-review for the specified BolParchi task and report evidence."
+
+policy:
+  allow_implicit_invocation: false

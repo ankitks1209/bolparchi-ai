@@ -1,0 +1,32 @@
+[
+  {
+    "id": "quantity-correction",
+    "message": "Do motor... sorry, ek motor chahiye.",
+    "expected": {"set": {"part_needed": "motor", "quantity": 1}, "clear": [], "spoken_job_id": null, "needs_clarification": false}
+  },
+  {
+    "id": "explicit-removal",
+    "message": "Part nahi chahiye. Part hata do.",
+    "expected": {"set": {}, "clear": ["part_needed"], "spoken_job_id": null, "needs_clarification": false}
+  },
+  {
+    "id": "completed",
+    "message": "Kaam poora ho gaya.",
+    "expected": {"set": {"status": "completed"}, "clear": [], "spoken_job_id": null, "needs_clarification": false}
+  },
+  {
+    "id": "native-script-quantity",
+    "message": "दो नहीं, एक चाहिए।",
+    "expected": {"set": {"quantity": 1}, "clear": [], "spoken_job_id": null, "needs_clarification": false}
+  },
+  {
+    "id": "spoken-job-mismatch",
+    "message": "Job 105 ka update hai. Kaam poora ho gaya.",
+    "expected": {"set": {"status": "completed"}, "clear": [], "spoken_job_id": "105", "needs_clarification": false}
+  },
+  {
+    "id": "ambiguous-quantity",
+    "message": "Ek ya do motor lagenge, abhi pata nahi.",
+    "expected": {"set": {}, "clear": [], "spoken_job_id": null, "needs_clarification": true}
+  }
+]

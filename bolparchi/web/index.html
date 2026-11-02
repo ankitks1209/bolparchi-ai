@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>BolParchi · Service update</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to service update</a>
+  <header class="masthead"><div class="brand-lockup"><button id="sidebar-toggle" class="logo-toggle" aria-label="Open sidebar" aria-controls="sidebar" aria-expanded="false" aria-haspopup="dialog" title="Open sidebar"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span></button><span class="wordmark">bolparchi<span aria-hidden="true">.</span></span></div><span class="local-label">Local prototype · fictional jobs</span></header>
+  <dialog id="sidebar" class="sidebar" aria-labelledby="sidebar-title">
+    <div class="sidebar-brand brand-lockup"><button id="sidebar-close" class="logo-toggle" aria-label="Close sidebar" title="Close sidebar" autofocus><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span></button><span class="wordmark">bolparchi<span aria-hidden="true">.</span></span></div>
+    <div class="sidebar-body">
+      <p class="eyebrow">YOUR SERVICE DESK</p><h2 id="sidebar-title">Workspace</h2>
+      <div class="sidebar-context"><p id="sidebar-job">No job selected</p><p id="sidebar-state" class="small muted">Choose a job to begin.</p></div>
+      <nav aria-label="Workspace shortcuts">
+        <button id="nav-jobs" class="sidebar-link"><span aria-hidden="true">01</span> Choose a job</button>
+        <button id="nav-update" class="sidebar-link" hidden><span aria-hidden="true">01</span> Visit update</button>
+        <button id="nav-review" class="sidebar-link" hidden><span aria-hidden="true">02</span> Review the record</button>
+        <button id="nav-receipt" class="sidebar-link" hidden><span aria-hidden="true">03</span> Saved receipt</button>
+      </nav>
+      <button id="nav-examples" class="sidebar-link sidebar-example" hidden>Try the fixture messages <span aria-hidden="true">↗</span></button>
+      <div class="sidebar-bottom"><p class="small">Speak naturally.<br>Save deliberately.</p><p class="small muted">Every update stays a draft until you review and confirm it.</p><p id="sidebar-mode" class="sidebar-mode"></p></div>
+    </div>
+  </dialog>
+  <main id="main">
+    <div id="page-heading" class="page-heading"><p class="eyebrow">THE SERVICE SHEET</p><h1>A clear record.<br>One update at a time.</h1><p class="intro">Visit ki baat, seedha record mein. Review every change before saving.</p></div>
+    <p id="mode" class="mode-note" role="status">Connecting to the local app…</p>
+    <section id="picker" class="picker" aria-labelledby="picker-title">
+      <h2 id="picker-title">Choose a job</h2>
+      <label for="job">Fictional service job</label>
+      <div class="picker-controls"><select id="job" disabled><option>Loading jobs…</option></select><button id="start" class="primary" disabled>Start update</button></div>
+      <p id="jobs-status" role="status"></p><button id="reload-jobs" class="secondary" hidden>Reload jobs</button>
+    </section>
+    <section id="sheet" class="sheet" aria-labelledby="job-title" hidden>
+      <header class="sheet-heading"><div class="job-identity"><div class="job-stamp"><p class="stamp-label">JOB NO.</p><p id="job-number"></p></div><div class="job-description"><p class="eyebrow">VISIT / SERVICE RECORD</p><h1 id="job-title"></h1><p id="customer" class="muted"></p></div></div><span id="record-state" class="state-tag">Draft · not saved</span></header>
+      <div class="sheet-body">
+        <section class="composer" aria-labelledby="input-title">
+          <p class="section-number">01 / VISIT UPDATE</p><h3 id="input-title">What happened at the visit?</h3>
+          <p class="muted small">Type in Hinglish or English. Add corrections in the same box.</p>
+          <div id="voice-controls" class="voice-controls" hidden>
+            <button id="record" class="record-button"><span aria-hidden="true">●</span> Record update</button>
+            <button id="stop-recording" class="primary" hidden>Stop and review</button>
+            <button id="discard-recording" class="secondary" hidden>Discard recording</button>
+            <div class="record-meta"><span id="capture-status" role="status"></span><span id="record-time">0:00 / 0:30</span></div>
+            <p class="small muted">Up to 30 seconds. Your recording is sent when you stop or reach the limit.</p>
+          </div>
+          <form id="message-form">
+            <label for="message">Your update</label>
+            <textarea id="message" rows="5" placeholder="Motor kharab hai. Ek motor chahiye…" aria-describedby="input-help count"></textarea>
+            <div class="input-meta"><span id="input-help">Up to 2,000 characters</span><span id="count">0 / 2,000</span></div>
+            <button id="submit-message" type="submit" class="primary">Review update <span aria-hidden="true">↗</span></button>
+          </form>
+          <div id="examples" hidden><details><summary>Try a fixture message</summary><p class="small muted">These exact messages use scripted responses. They do not test AI.</p><div id="example-buttons"></div></details></div>
+          <p id="voice-note" class="voice-note">Voice is unavailable in this session. Type your update.</p>
+          <details id="transcript-details" hidden><summary>Last submitted message</summary><p id="transcript" class="transcript"></p></details>
+        </section>
+        <section class="review" aria-labelledby="review-title">
+          <p class="section-number">02 / REVIEW THE RECORD</p><h3 id="review-title">Service details</h3>
+          <p class="muted small">Only details from your updates appear here.</p>
+          <dl id="fields"></dl>
+          <div class="readback-controls"><button id="listen" class="secondary" hidden>Listen to review</button><button id="stop-readback" class="secondary" hidden>Stop read-back</button><p id="playback-status" class="small muted" role="status"></p></div>
+          <details id="readback-details" hidden><summary>Read-back text</summary><p id="readback-text"></p></details>
+          <audio id="readback-audio" preload="none" hidden></audio>
+          <div id="state-panel" class="state-panel" role="status" aria-live="polite" aria-atomic="true"><p id="state-title"></p><p id="state-message"></p></div>
+          <div id="recovery-actions" class="action-row"><button id="retry" class="secondary" hidden>Retry extraction</button><button id="refresh" class="secondary" hidden>Refresh draft</button><button id="apply-mismatch" class="secondary" hidden>Apply to selected job</button><button id="discard-mismatch" class="secondary" hidden>Discard message</button><button id="check-save" class="primary" hidden>Check save status</button><button id="retry-save" class="secondary" hidden>Retry same save</button></div>
+          <p id="notice" class="notice" role="alert" hidden></p>
+          <div id="save-controls"><p id="review-help" class="small muted">Nothing is saved until you confirm the full record.</p><button id="save" class="primary save" disabled>Confirm and save <span aria-hidden="true">↗</span></button></div>
+          <div id="receipt" class="receipt" hidden><h3>Saved to this device</h3><p class="small muted">Receipt</p><p id="receipt-id"></p><p id="receipt-time" class="small muted"></p></div>
+        </section>
+      </div>
+      <footer class="sheet-footer"><span class="small muted" id="draft-note">You stay in control of the final record.</span><button id="cancel" class="text-button">Cancel update</button><button id="another" class="secondary" hidden>Choose another job</button></footer>
+      <details class="technical"><summary>Record reference</summary><p id="reference"></p></details>
+    </section>
+    <footer class="page-footer"><span>Speak naturally. Save deliberately.</span><span>BolParchi / Working preview</span></footer>
+  </main>
+</body>
+</html>
