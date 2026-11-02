@@ -89,8 +89,9 @@ Six user-invoked skills live in `skills/`, with Codex discovery links under
 `.agents/skills/`. Example: `Use $code-review to review this diff; do not edit.`
 The existing Skill Checklist is preserved. Do not apply the older single-skill patch.
 
-The GitHub Actions workflow runs offline pytest and both Ruff checks after this
-repository is published. It has not run remotely; branch protection is not configured.
+The GitHub Actions workflow runs offline pytest and both Ruff checks on pushes
+and pull requests. The first [hosted run passed](https://github.com/ankitks1209/bolparchi-ai/actions/runs/41478046702)
+on 2 November 2026. Branch protection was not configured as part of this setup.
 See [setup verification](agent_docs/setup-verification.md) for local evidence.
 
 ## Git and GitHub
@@ -101,6 +102,6 @@ evaluation fixtures, and submission documentation here. Review `git status` and
 virtual environments, caches, local databases and generated recordings.
 
 Use fictional data only. Add deliberately selected synthetic evaluation audio later;
-do not commit real customer recordings or credentials. Local source is committed;
-the public GitHub repository is being set up. A public source repository does not
+do not commit real customer recordings or credentials. Source is available in the
+public [bolparchi-ai repository](https://github.com/ankitks1209/bolparchi-ai). A public source repository does not
 mean the application is deployed or ready for production use.

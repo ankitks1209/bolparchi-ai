@@ -6,7 +6,7 @@ Updated 2 November 2026. Current checkpoint: the local browser connects typed/re
 
 Ankit explicitly requested committing and pushing the existing code to GitHub on 2 November. Created initial commit `529e140` on main with 107 source/test/documentation/configuration files. Configured credentials and common credential patterns were checked without printing values, with no matches. `.env`, private recordings, databases, artifacts and the virtual environment are ignored. Baseline: 377 tests passed, one existing warning in 1.26s; Ruff lint passed and format reported 77 files already formatted. A clean temporary archive of only committed files also passed all 377 tests with one warning in 1.49s, using the existing environment.
 
-Ankit chose a public repository with a work-in-progress label and will create it himself; recommended name `bolparchi-ai`. Added a prominent README status explaining fixture responses and pending real Gemini/voice validation. Await the repository URL before setting a remote and pushing. No remote push or hosted CI success is claimed yet. This GitHub request does not authorize a website deployment or sharing change to the existing Sites preview.
+Ankit created and supplied the public [bolparchi-ai repository](https://github.com/ankitks1209/bolparchi-ai). Added a prominent README work-in-progress label explaining fixture responses and pending real Gemini/voice validation. Confirmed the destination was empty, set origin to the supplied HTTPS URL and pushed main with tracking. Commit `a615bd3` matches the pushed branch; its [first GitHub Actions run](https://github.com/ankitks1209/bolparchi-ai/actions/runs/41478046702) completed successfully. Local verification before pushing: 377 passed, one existing warning in 1.21s; Ruff lint passed and format reported 77 files already formatted. These checks do not establish live AI readiness. No website deployment, billing/provider call or change to the existing Sites preview occurred.
 
 ## Previous task: Gemini isolation diagnostic — stopped on plain-generation failure
 
@@ -176,7 +176,7 @@ There was one sandbox DNS failure before the first live TTS request. No automati
 | Browser | Fictional-job selector, typed/recorded Update, playback and inline saved receipt implemented. Broader record-history UI, final visual acceptance and technician walkthrough remain pending |
 | Voice | Browser capture/playback, denial/empty fallback, cancellation and stale-response guards implemented/tested with synthetic audio. Human microphone quality, live integrated read-back and other demo devices remain unverified |
 | Evaluation/usefulness | No broader transcript/audio evaluation, technician walkthrough or complete real recorded task |
-| Delivery | Owner-private static visualization deployed; no hosted working application, public demo/post, final submission or observed application GitHub remote |
+| Delivery | Public source repository on GitHub, main pushed and first hosted CI successful. Earlier owner-private static visualization remains separate; no hosted working application, public demo/post or final submission |
 
 Optional direct field editing and cross-session draft resume remain cut under the accepted 24 October rule. Hosting is optional; fresh confirmation is required for future deployment, and no social publication is implied. Current programme deadline checked 24 October: 10 November 2026, 11:59 PM IST; follow the emailed submission form and recheck requirements before submission.
 
