@@ -10,3 +10,7 @@ Record non-obvious accepted decisions here using sequential `NNN-short-title.md`
 - [006 — Persist save identity, attempts and terminal fences](006-save-recovery.md)
 - [007 — Connect the local browser to existing workflow authority](007-local-browser.md)
 - [008 — Bounded browser audio and exact-review playback](008-browser-speech.md)
+- [009 — Pin the working extraction model and preserve failed evidence](009-extraction-model.md)
+- [010 — Identify the client and allow explicit transient extraction retries](010-provider-transport-and-retry.md)
+- [011 — Bound automatic recovery from Gemini 503](011-bounded-extraction-recovery.md)
+- [012 — Account explicitly for every extraction field](012-field-decisions.md)

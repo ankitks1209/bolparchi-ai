@@ -1,0 +1,48 @@
+[
+  {
+    "id": "native-followup-after-correction",
+    "message": "मोटर खराब है, दो मोटर, सॉरी, एक मोटर चाहिए, काम पेंडिंग है, कल शाम आना है।",
+    "current": {"job_id": "104"},
+    "set_values": {"quantity": 1, "status": "pending"},
+    "text_contains": {"diagnosis": "मोटर खराब", "part_needed": "मोटर", "follow_up": "कल शाम"},
+    "clear": [], "needs_clarification": false
+  },
+  {
+    "id": "hinglish-followup-before-correction",
+    "message": "Parso subah wapas aaunga. Pump kharab hai. Kaam pending hai. Teen pump nahi, ek pump chahiye.",
+    "current": {"job_id": "104"},
+    "set_values": {"quantity": 1, "status": "pending"},
+    "text_contains": {"diagnosis": "kharab", "part_needed": "pump", "follow_up": "Parso subah"},
+    "clear": [], "needs_clarification": false
+  },
+  {
+    "id": "missing-followup-stays-missing",
+    "message": "बेल्ट टूटी है। एक बेल्ट चाहिए। काम बाकी है।",
+    "current": {"job_id": "104"},
+    "set_values": {"quantity": 1, "status": "pending"},
+    "text_contains": {"diagnosis": "टूटी", "part_needed": "बेल्ट"},
+    "absent": ["follow_up"], "clear": [], "needs_clarification": false
+  },
+  {
+    "id": "explicit-followup-removal",
+    "message": "Follow-up hata do.",
+    "current": {"job_id": "104", "follow_up": "Monday evening"},
+    "set_values": {}, "text_contains": {}, "absent": ["diagnosis", "status", "part_needed", "quantity", "follow_up"],
+    "clear": ["follow_up"], "needs_clarification": false
+  },
+  {
+    "id": "uncertain-quantity-holds-followup-too",
+    "message": "तीन या चार बेल्ट चाहिए, अभी पक्का नहीं। कल शाम आऊंगा।",
+    "current": {"job_id": "104"},
+    "set_values": {}, "text_contains": {}, "absent": ["diagnosis", "status", "part_needed", "quantity", "follow_up"],
+    "clear": [], "needs_clarification": true
+  },
+  {
+    "id": "native-followup-replaces-existing-value",
+    "message": "मोटर खराब है, दो मोटर, सॉरी, एक मोटर चाहिए, काम पेंडिंग है, कल शाम आना है।",
+    "current": {"job_id": "104", "follow_up": "Old visit", "quantity": 2, "part_needed": "मोटर"},
+    "set_values": {"quantity": 1, "status": "pending"},
+    "text_contains": {"diagnosis": "मोटर खराब", "part_needed": "मोटर", "follow_up": "कल शाम"},
+    "clear": [], "needs_clarification": false
+  }
+]

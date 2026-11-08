@@ -1,15 +1,19 @@
 """Run the local browser prototype. Choose fixtures or explicitly capped live use."""
 
 import argparse
+import logging
 import os
 import threading
 from pathlib import Path
+from time import monotonic, sleep
 
 import uvicorn
 
 from bolparchi import Store
-from bolparchi.gemini import GeminiExtractor, ProviderError
+from bolparchi.extraction import GeminiExtractor
+from bolparchi.provider_http import ProviderError
 from bolparchi.gnani import GnaniSpeech
+from bolparchi.provider_http import safe_error_code
 from bolparchi.speech_runtime import CappedSpeech
 from bolparchi.webapp import create_app
 from scripts.demo_speech import FixtureSpeech
@@ -18,24 +22,84 @@ from scripts.probe_gemini import load_key
 
 
 class CappedExtractor:
-    """A launch-local allowance. Stop after a provider error; never auto-retry."""
+    """Serialize extraction, cap all attempts, and bound caller wait to 30 seconds.
 
-    def __init__(self, extractor, limit):
+    Only HTTP 503 is retried automatically (three attempts, delays 1s and 2s).
+    A timed-out transport may still finish in its daemon worker, but its result
+    is discarded and no new transport starts until it exits. Workers never own
+    workflow/store callbacks, so a late completion cannot mutate a draft.
+    """
+
+    def __init__(self, extractor, limit, *, timeout=30):
+        if type(limit) is not int or not 1 <= limit <= 6:
+            raise ValueError("invalid_request_limit")
+        if not isinstance(timeout, (int, float)) or not 0 < timeout <= 30:
+            raise ValueError("invalid_extraction_timeout")
         self.extractor = extractor
         self.remaining = limit
+        self.timeout = timeout
         self.lock = threading.Lock()
         self.stopped = False
+        self.in_flight = None
 
     def __call__(self, message, current):
-        with self.lock:
-            if self.stopped or self.remaining <= 0:
-                raise ProviderError("request_allowance_exhausted")
-            self.remaining -= 1
-            try:
-                return self.extractor(message, current)
-            except Exception:
-                self.stopped = True
-                raise
+        return self.extract_with_guard(message, current, is_current=lambda: True)
+
+    def extract_with_guard(self, message, current, *, is_current):
+        deadline = monotonic() + self.timeout
+        if not self.lock.acquire(timeout=self.timeout):
+            raise ProviderError("timeout")
+        try:
+            if self.in_flight is not None and not self.in_flight.is_set():
+                raise ProviderError("request_in_progress")
+            for attempt in range(3):
+                if monotonic() >= deadline:
+                    raise ProviderError("timeout")
+                if not is_current():
+                    raise ProviderError("request_superseded")
+                if self.stopped or self.remaining <= 0:
+                    raise ProviderError("request_allowance_exhausted")
+                self.remaining -= 1
+                finished = threading.Event()
+                result = []
+                self.in_flight = finished
+
+                def invoke(done=finished, output=result):
+                    try:
+                        output.append((True, self.extractor(message, dict(current))))
+                    except Exception as exc:
+                        output.append((False, exc))
+                    finally:
+                        done.set()
+
+                threading.Thread(target=invoke, daemon=True).start()
+                if not finished.wait(max(0, deadline - monotonic())) or monotonic() >= deadline:
+                    raise ProviderError("timeout")
+                if not result:
+                    raise ProviderError("transport_error")
+                ok, value = result[0]
+                if ok:
+                    return value
+                code = safe_error_code(value)
+                self.stopped = code not in {
+                    "http_408",
+                    "http_500",
+                    "http_502",
+                    "http_503",
+                    "http_504",
+                    "timeout",
+                    "network_error",
+                }
+                logging.getLogger(__name__).warning("Gemini request failed: %s", code)
+                if code != "http_503" or attempt == 2 or self.remaining <= 0:
+                    raise value
+                delay = (1, 2)[attempt]
+                if deadline - monotonic() <= delay:
+                    raise ProviderError("timeout")
+                sleep(delay)
+            raise ProviderError("transport_error")  # Defensive; loop always returns/raises.
+        finally:
+            self.lock.release()
 
 
 def main():

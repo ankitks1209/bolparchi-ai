@@ -1,0 +1,8 @@
+[
+  {"id":"new-number-correction","message":"Teen nahi, chaar chahiye.","expected":{"set":{"quantity":4},"clear":[],"spoken_job_id":null,"needs_clarification":false}},
+  {"id":"uncertain-lower-bound","message":"Do se zyada lagenge; exact ginti baad mein bataunga.","expected":{"set":{},"clear":[],"spoken_job_id":null,"needs_clarification":true}},
+  {"id":"complete-and-remove-followup","message":"Kaam complete hai, follow-up cancel kar do.","expected":{"set":{"status":"completed"},"clear":["follow_up"],"spoken_job_id":null,"needs_clarification":false}},
+  {"id":"different-spoken-job","message":"Job 106 ka kaam abhi baaki hai.","expected":{"set":{"status":"pending"},"clear":[],"spoken_job_id":"106","needs_clarification":false}},
+  {"id":"native-completion","message":"काम पूरा हो गया।","expected":{"set":{"status":"completed"},"clear":[],"spoken_job_id":null,"needs_clarification":false}},
+  {"id":"explicit-quantity-removal","message":"Quantity hata do.","expected":{"set":{},"clear":["quantity"],"spoken_job_id":null,"needs_clarification":false}}
+]

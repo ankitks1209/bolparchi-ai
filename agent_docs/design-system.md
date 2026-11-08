@@ -1,5 +1,71 @@
 # Design-system constraints
 
+## Visual direction selected — 7 November 2026
+
+After viewing the local landing-page preview, Ankit said “okay i like the visual” and asked about Brag for the working demo. Carry this neutral, tactile-paper direction into the video. This records the user's visual preference; it does not authorize publication or imply the pending video was reviewed. The specimen and checks below remain the implementation evidence.
+
+## Landing-page specimen implemented — 7 November 2026
+
+The local `site/` preview implements the proposed system below. Its hero uses a clearly labelled HTML illustration so Hindi fields and the quantity correction remain readable at mobile widths; unmodified actual interface captures appear in the product section. This deliberately separates explanation from evidence. The monochrome states, token scale, paper layering and nine-degree navigation logo are implemented. Desktop/mobile and narrow overflow checks passed; keyboard/drawer/evidence interactions and missing-image recovery were exercised. Source and provenance: [site README](../site/README.md). Captures: `artifacts/landing-20261107/`. This is a candidate for Ankit's visual feedback, not a claim of final preference approval. The working demo video remains pending.
+
+## Proposed landing-page system — 7 November 2026
+
+Ankit requested a design and landing page before producing the submission video, using Janus Tiu's supplied design-system template. This section adapts its structure to BolParchi's existing identity; it is a proposal for a rendered preview, not approval of an unseen page. The Retro Groovy example is not the selected palette. The app's existing service-sheet workflow remains the product surface; the proposed landing page explains that product to reviewers. Earlier advice below to avoid a promotional landing page applies to the technician's task screen, not this newly requested presentation page.
+
+**Brief:** Build a Hindi/Hinglish repair-record product with a minimal white/charcoal identity, tactile paper surfaces and restrained morphism. Give the spoken correction and resulting service sheet the visual emphasis. Use the existing paper logo rather than a new mascot or stock illustration. Landing-page content and video sequencing live in [the landing-page brief](../docs/landing-page-brief.md); this file remains the authoritative visual reference.
+
+### Color palette
+
+| Token | Proposed value | Use |
+| --- | --- | --- |
+| Primary | `#202020` | Main action, focus ring and key emphasis |
+| Secondary | `#F5F5F5` | Quiet supporting surfaces/actions with charcoal text |
+| Background | `#F5F5F5` | Page canvas |
+| Surface | `#FFFFFF` | Service sheet, inputs and navigation |
+| Text primary | `#202020` | Headlines and body |
+| Text secondary | `#666666` | Captions and supporting copy |
+| Border subtle | `#E5E5E5` | Decorative rules, not the sole control boundary |
+| Border control | `#808080` | Input/control boundaries |
+| Success / warning / error ink | `#202020` | Distinct icon and explicit text distinguish each state |
+| State surface | `#F5F5F5` | State messages with visible border/label |
+
+Keep semantic tokens separate even where their values match. Monochrome must not collapse “Saved”, “Needs your review” and “Could not process” into indistinguishable messages. Do not reintroduce blue/green or adopt the template's orange/purple. Shadows and existing logo bevels may use neutral alpha variants; verify contrast on the actual rendered surfaces.
+
+### Typography and spacing
+
+- Retain `"Avenir Next", -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Devanagari", sans-serif`. A Google Font is not mandatory: it would introduce a new asset/loading decision without a demonstrated need. Inspect both scripts on the preview device.
+- Landing headings: weight 600–700, tight Latin tracking; body weight 400, controls 600. Do not apply tight Latin tracking to Devanagari. Body line height 1.5; headline 1.1–1.2.
+- Size scale: 12 / 14 / 16 / 20 / 24 / 32 / 40 / 48 / 64px. The 64px extension is for the desktop hero; mobile hero starts at 40px and must wrap naturally. Record values remain at least 16px; avoid shrinking an entire screenshot until fields become illegible.
+- Spacing: 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 96px. The 96px extension is for major desktop section separation; mobile sections use 48–64px. Structural widths, borders and existing logo geometry are explicit exceptions, not arbitrary spacing.
+- Proposed landing content maximum 1120px, outer gutter 32px desktop / 16px mobile. Stack the hero on narrow screens, in reading order: promise, explanation, action, product evidence.
+
+### Shape, shadows and components
+
+- Radius: 8px small labels; 12px inputs/buttons; 16px sheet; 24px large media frame. Preserve the existing paper logo's asymmetric corner. Pills only where the content warrants them.
+- Shadows: subtle `0 1px 2px rgba(0,0,0,.05)`; medium `0 4px 12px rgba(0,0,0,.08)`; strong `0 12px 32px rgba(0,0,0,.10)`. Reserve strong elevation for the hero sheet or open drawer; do not shadow every section.
+- Primary buttons: charcoal/white, minimum 48px high, 12px vertical / 24px horizontal padding, 12px radius. Secondary buttons: white, charcoal text and visible control border. Clear hover/focus/pressed states; no layout shift or compulsory scale bounce.
+- Inputs: minimum 48px high, 12–16px padding, persistent label, 2px charcoal focus outline with offset. Existing textarea and workflow semantics remain authoritative.
+- Cards: use only for the service sheet, media frame or a genuinely grouped example. Start with 24px padding, a subtle border and one elevation level. Use open typography/rules for surrounding narrative.
+- Hero artwork: an actual app capture, with a readable crop of the corrected quantity and follow-up if necessary. Explicitly label any separate animated explanation as an illustrative example. Do not manufacture live status, waveform activity or receipt evidence.
+
+### Motion and consistency rules
+
+1. The paper mark stays upright at rest and tilts nine degrees when its navigation drawer opens. Navigation links must have real destinations; preserve keyboard focus, Escape/backdrop dismissal and reduced motion.
+2. Carry the app's 260ms drawer timing and `cubic-bezier(.2,.8,.2,1)` into matching interactions. Limit other transitions to purposeful opacity/translation around 160–260ms. No scroll hijacking or perpetual floating cards.
+3. Repeat the same tokens across landing page, app references and video title/caption cards. Product footage retains the actual UI.
+4. Use sentence case and concrete actions. No invented usage counts, endorsements, time savings or universal accuracy claims.
+5. Inspect desktop/mobile, long Hinglish/Devanagari, keyboard focus, reduced motion, media fallback and overflow before calling the page verified. Target at least 4.5:1 normal text and 3:1 large text/control boundaries.
+
+## Final polish completed — 6 November 2026
+
+Applied a focused Unslop pass after Ankit's successful microphone task, preserving the neutral palette, paper identity and animated logo. Changes and attribution to Damir Sokolovsky (CC BY 4.0) are in [the polish review](unslop-review.md). Desktop/mobile review, error/recovery/clarification/correction/save and keyboard/sidebar checks passed with fixture providers. No runtime workflow behavior changed. The dated plan below is historical; the polish is now implemented, while the actual submission video remains pending.
+
+## Original final-polish plan — 5 November 2026
+
+Ankit explicitly selected [Unslop by Damir Sokolovsky](https://github.com/heydamir/unslop) for the **last UI polish pass**, after core provider/workflow validation and submission preparation. The skill is already installed locally. Do not start a redesign while resolving the core release blockers. Preserve the neutral white/charcoal palette, subtle morphism, service-sheet identity and functional upright/tilted sidebar logo. Begin with an audit of the actual desktop/mobile views; use focused polish unless evidence justifies a larger change. Retain attribution when copying/adapting the skill. Recheck interaction states, accessibility and the full test suite after polish, before recording the final submission video. This records the agreed order; no Unslop edits have been applied yet.
+
+## Current interface
+
 Status: the local typed/recorded Update screen is implemented; final visual acceptance remains open. Ankit rejected the blue Field sheet and green Focused sheet and requested a minimalist neutral direction. After seeing the working screen, he requested more visual character. The revision keeps monochrome rows and adds a job-number stamp, layered paper surface, small sheet-shaped brand mark and raised charcoal actions. See [design research](design-research.md) for earlier proposals and [working system](working-system.md) for review checkpoints.
 
 Current implementation: `bolparchi/web/index.html`, `style.css` and `app.js`. Avenir Next is used when installed, with system/Devanagari fallbacks and no downloaded font. Decorative gradients/shadows have opaque surfaces underneath; status and control labels do not rely on shadows or colour. The introductory heading hides once a job is selected so the actual record gets priority. This is a revised candidate, not a claim that Ankit approved the final composition.

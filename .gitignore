@@ -37,3 +37,7 @@ artifacts/
 .DS_Store
 .idea/
 .vscode/
+video/
+*.mp4
+*.mov
+.DS_Store

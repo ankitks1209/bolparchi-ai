@@ -8,8 +8,14 @@ import argparse
 import json
 from pathlib import Path
 
-from bolparchi.fields import SCHEMA_VERSION, extraction_schema
-from bolparchi.gemini import ENDPOINT, MODEL, PROMPT_VERSION, build_request
+from bolparchi.extraction import (
+    ENDPOINT,
+    MODEL,
+    PROMPT_VERSION,
+    SCHEMA_VERSION,
+    build_request,
+    extraction_schema,
+)
 from bolparchi.validation import validate_extraction, validate_message
 
 

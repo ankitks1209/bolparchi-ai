@@ -57,3 +57,14 @@ def test_named_speech_key_uses_only_requested_variable_without_executing_file(tm
     assert load_key(path, {}, name="GNANI_API_KEY") == "gnani-test"
     assert load_key(path, {"GNANI_API_KEY": "env-test"}, name="GNANI_API_KEY") == "env-test"
     assert load_key(path, {}) == "gemini-test"
+
+
+def test_speech_failure_logs_safe_provider_code_without_private_details(caplog):
+    class Failing(Provider):
+        def transcribe(self, audio, *, file_format):
+            raise ProviderError("http_403")
+
+    with pytest.raises(ProviderError):
+        CappedSpeech(Failing(), 1).transcribe(b"audio", file_format="wav")
+    assert "http_403" in caplog.text
+    assert "Gnani" in caplog.text

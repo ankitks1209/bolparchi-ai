@@ -1,6 +1,7 @@
 """Explicit per-process Gnani allowance and synthetic offline speech fixtures."""
 
-from .provider_http import ProviderError
+from .provider_http import ProviderError, safe_error_code
+import logging
 import threading
 
 
@@ -20,6 +21,9 @@ class CappedSpeech:
             try:
                 return method(*args, **kwargs)
             except Exception as exc:
+                logging.getLogger(__name__).warning(
+                    "Gnani request failed: %s", safe_error_code(exc)
+                )
                 if not isinstance(exc, ProviderError) or str(exc) != "empty_transcript":
                     self.stopped = True
                 raise

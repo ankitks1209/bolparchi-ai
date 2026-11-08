@@ -1,6 +1,6 @@
 # Local browser prototype
 
-The local browser uses the existing Workflow, SaveRecovery and SQLite Store. It has a fictional-job selector, a typed/recorded Update sheet, optional read-back playback and an inline saved receipt. A successful live Gemini extraction is still unverified; fixture success does not establish AI quality.
+The local browser uses the existing Workflow, SaveRecovery and SQLite Store. It has a fictional-job selector, a typed/recorded Update sheet, optional read-back playback and an inline saved receipt. A live typed Gemini clarification/correction/save task and one user-operated microphone task have passed; general extraction/speech quality remains unverified. See [evaluation](EVALUATION.md).
 
 ## Start the offline walkthrough
 
@@ -43,11 +43,19 @@ An extraction request can be cancelled while its provider call continues. Store 
 
 ## Live mode is explicit and separate
 
-The runner requires either `--fixtures` or `--live`. Merely starting the app or opening a page makes no provider call. Live mode requires a `--max-requests` allowance from 1 to 6 and private environment configuration. It uses GeminiExtractor directly, never falls back to fixtures, and stops further calls after a provider error. The cap is for that server process; restarting does not grant permission or restore the project's approved allowance.
+The runner requires either `--fixtures` or `--live`. Merely starting the app or opening a page makes no provider call. Live mode requires a `--max-requests` allowance from 1 to 6 and private environment configuration. It uses GeminiExtractor directly, never falls back to fixtures, and allows explicit retries after transient errors within the remaining cap. Authentication, quota, invalid-response and other nontransient errors stop further calls. HTTP 503 is retried at most twice within the action, after 1 and 2 seconds; every attempt counts against the same cap. Other errors are not automatically retried. The 30-second extraction wait deadline includes queueing/backoff. A timed-out transport may still finish, but its output is discarded and overlapping transport is blocked until it exits. Cancelled/superseded turns are checked before further attempts; see [ADR-011](../agent_docs/decisions/011-bounded-extraction-recovery.md). The cap is for that server process; restarting does not grant permission or restore the project's approved allowance.
 
-Live speech is disabled unless `--max-speech-requests N` is also supplied (N is 1–6), with `GNANI_API_KEY` in the environment or the explicitly supplied `--env-file`. STT and TTS share that process-local allowance. Calls consume an attempt before networking; provider failures stop later calls, except empty transcripts may be repeated within the cap. Neither provider retries automatically. Limits in a command are not authorization to spend credits; restarting does not reset the project's approved allowance. Fixture mode rejects credential and allowance arguments.
+Live speech is disabled unless `--max-speech-requests N` is also supplied (N is 1–6), with `GNANI_API_KEY` in the environment or the explicitly supplied `--env-file`. STT and TTS share that process-local allowance. Calls consume an attempt before networking; provider failures stop later calls, except empty transcripts may be repeated within the cap. Speech does not retry automatically. The extraction wrapper retries only HTTP 503 as described above; the underlying adapters and standalone probes remain single-attempt. Limits in a command are not authorization to spend credits; restarting does not reset the project's approved allowance. Fixture mode rejects credential and allowance arguments.
 
-Current project evidence: all six original Gemini attempts were consumed with no successful extraction. Ankit then approved a two-step diagnostic; its plain one-word request also returned 503 and the conditional extraction call was skipped. The run stopped after one additional call; see [status](../agent_docs/status.md). Do not use the remaining conditional request to start a live server or retry automatically. Project access/quota and model availability need investigation. No new Gnani request allowance is implied by the browser wiring.
+Current authorization (5 November): Ankit authorized necessary provider tests within the reported free tier and existing Gnani credits while completing the project. Do not enable billing or paid overage. The old six-request/two-request diagnostic limits are historical; process-local caps still bound every launch. Keys remain private in `.env`, parsed only when explicitly named.
+
+Example bounded live launch within that authorization:
+
+```sh
+.venv/bin/python -m scripts.run_web --live --max-requests 6 --max-speech-requests 2 --env-file .env --db artifacts/local-live.sqlite
+```
+
+This makes no calls until an input/read-back action. Six extraction attempts and two combined STT/TTS attempts are the maximum for that process. Exhaustion requires a deliberately reviewed new launch; it is not a reason to loop restarts. Current model/prompt and failure evidence are in [status](../agent_docs/status.md).
 
 ## Check the browser
 
@@ -68,3 +76,7 @@ Browser scripts default to the loopback URL above; an optional third argument ch
 The first screen's neutral design is a working candidate. After Ankit requested more character, it gained a job-number stamp, a layered paper surface and raised charcoal controls. It has been visually inspected at desktop and narrow widths; this is not a general accessibility certification or technician usability study.
 
 Direct dependency versions were checked against their package releases: [FastAPI 0.162.0](https://pypi.org/project/fastapi/0.162.0/), [Uvicorn 0.54.0](https://pypi.org/project/uvicorn/0.54.0/) and [HTTPX 0.28.1](https://pypi.org/project/httpx/0.28.1/). Installed Starlette 1.10.0 currently emits an HTTPX TestClient deprecation warning; tests pass, and no extra replacement dependency was installed. Runtime Python used for these checks is 3.14.7; other versions are not verified.
+
+## Offline 503 recovery check
+
+Run `.venv/bin/python -m scripts.demo_retry_recovery`, then open `http://127.0.0.1:8768`. It uses no keys or AI requests. The first fixture message triggers exactly three simulated 503s with real backoff. The UI must preserve the submitted message, keep saving disabled and offer Retry extraction. That button recovers on attempt four; the normal follow-up and correction use attempts five and six. Confirm explicitly to save. The isolated SQLite evidence lives in `artifacts/retry-browser.sqlite`; restarting resets this test double's attempt sequence, not provider authorization.

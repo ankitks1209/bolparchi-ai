@@ -72,7 +72,7 @@ function renderSidebar() {
   $('nav-review').hidden = !draft;
   $('nav-receipt').hidden = !(draft?.state === 'saved' && matchingReceipt());
   $('nav-examples').hidden = mode !== 'fixtures' || !draft || draft.state !== 'open' || saveLocked();
-  $('sidebar-mode').textContent = mode === 'fixtures' ? 'LOCAL / FIXTURE WALKTHROUGH' : mode === 'live' ? 'LOCAL / LIVE PROVIDERS' : 'LOCAL / CONNECTING';
+  $('sidebar-mode').textContent = mode === 'fixtures' ? 'Local / Fixture walkthrough' : mode === 'live' ? 'Local / Live providers' : 'Local / Connecting';
   $('sidebar-toggle').disabled = captureState !== 'idle';
 }
 function closeSidebar(target = null) {

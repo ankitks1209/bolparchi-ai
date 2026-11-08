@@ -8,6 +8,18 @@ from scripts.diagnose_gemini import run_diagnostic
 
 PATCH = {"set": {"quantity": 1}, "clear": [], "spoken_job_id": None, "needs_clarification": False}
 CASE = {"id": "correction", "message": "Do nahi, ek motor.", "expected": PATCH}
+DECISIONS = {
+    "fields": {
+        "diagnosis": {"operation": "not_mentioned", "value": None, "evidence": ""},
+        "status": {"operation": "not_mentioned", "value": None, "evidence": ""},
+        "part_needed": {"operation": "not_mentioned", "value": None, "evidence": ""},
+        "quantity": {"operation": "set", "value": 1, "evidence": "ek motor"},
+        "follow_up": {"operation": "not_mentioned", "value": None, "evidence": ""},
+    },
+    "spoken_job_id": None,
+    "job_evidence": "",
+    "needs_clarification": False,
+}
 
 
 def response(text):
@@ -21,7 +33,7 @@ def test_plain_generation_precedes_unchanged_extraction_with_a_shared_cap():
 
     def transport(**kwargs):
         calls.append(json.loads(kwargs["body"]))
-        return response("READY" if len(calls) == 1 else json.dumps(PATCH))
+        return response("READY" if len(calls) == 1 else json.dumps(DECISIONS))
 
     report = run_diagnostic(
         "test-key",

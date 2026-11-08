@@ -122,10 +122,26 @@ class Workflow:
             return started
         draft = started.data
         current = draft["input"]
+
         # The callback runs outside every SQLite transaction/lock. Cancellation,
         # newer messages and direct edits remain possible while it is running.
+        def is_current():
+            latest = self.store.get_draft(draft["draft_id"])
+            return bool(
+                latest
+                and latest["state"] == "open"
+                and latest["revision"] == current["starting_revision"]
+                and latest["input"]
+                and latest["input"]["turn_id"] == current["turn_id"]
+                and latest["input"]["state"] == "processing"
+            )
+
         try:
-            raw = self.extractor(current["transcript"], dict(draft["proposal"]))
+            guarded = getattr(self.extractor, "extract_with_guard", None)
+            if guarded is not None:
+                raw = guarded(current["transcript"], dict(draft["proposal"]), is_current=is_current)
+            else:
+                raw = self.extractor(current["transcript"], dict(draft["proposal"]))
         except Exception:
             result = self.store.fail_turn(
                 draft["draft_id"],

@@ -38,7 +38,12 @@ def test_generated_schema_has_sparse_nonnullable_changes_and_fixed_job():
     }
     assert changes["properties"]["diagnosis"]["maxLength"] == 500
     assert changes["properties"]["part_needed"]["maxLength"] == 120
-    assert changes["properties"]["quantity"] == {"type": "integer", "minimum": 1, "maximum": 20}
+    assert changes["properties"]["quantity"] == {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 20,
+        "description": "The final explicitly stated count after corrections; never choose between uncertain alternatives.",
+    }
     assert changes["properties"]["status"]["enum"] == ["completed", "pending"]
     assert schema["properties"]["spoken_job_id"]["type"] == ["string", "null"]
     assert "job_id" not in schema["properties"]["clear"]["items"]["enum"]

@@ -1,6 +1,13 @@
 # Provider probe preparation
 
-Official Gnani contracts rechecked on 27 October, its STT duration limit on 31 October, and Gemini model/troubleshooting documentation on 28 October 2026. Ankit reported Gnani dashboard access and 5,000 credits and privately configured a key. Earlier TTS/STT probes returned HTTP 200. Gemini metadata access now succeeds, but three generation calls returned HTTP 503; successful extraction remains unverified. No paid overage is authorized.
+Current evidence, 6 November 2026: the active Gemini 3.5 Flash-Lite field-decision adapter passes six targeted development checks and real typed Hindi review/save. The retained-recording backend task now passes real Gnani STT → Gemini extraction/clarification → Gnani TTS → explicit test confirmation/SQLite receipt without retries. The frozen evaluation remains five exact matches/one HTTP 503, with a separate successful recheck of that unavailable uncertainty case. Ankit has also completed the fresh browser microphone task and reported clear recording/playback; its saved receipt was independently verified. This is one-device feedback, not general speech-quality evidence. See [evaluation](../docs/EVALUATION.md). Historical reports below retain their original configuration and failures.
+
+
+Ankit authorized necessary tests to finish the project using the reported free tier/existing credits. No paid overage or billing change is authorized. The dated probe entries below are historical and do not override the current authorization or readiness record.
+
+## Frozen extraction evaluation — 6 November
+
+The active configuration produced five exact matches from six single-attempt frozen cases, with one HTTP 503 and no semantic mismatches among the five returned patches. The initial runner stopped on case two; a separate batch sent only the four untouched cases. No failed case was retried, no prompt/expectations were changed and no Gnani requests were made. The uncertainty case was unverified in that run; a separate unchanged recheck subsequently passed. Full results and immutable evidence references are in [evaluation](../docs/EVALUATION.md).
 
 ## Account setup
 

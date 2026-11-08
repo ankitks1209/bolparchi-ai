@@ -8,6 +8,8 @@ from bolparchi import Store
 from bolparchi.recovery import SaveRecovery
 from bolparchi.webapp import create_app
 from scripts.demo_typed_workflow import MESSAGES, fixture_extractor
+from scripts.run_web import CappedExtractor
+from bolparchi.provider_http import ProviderError
 
 
 @pytest.fixture
@@ -92,6 +94,38 @@ def test_http_extractor_error_keeps_transcript_and_retry_uses_it(store):
         ).json()
         assert retried["view"]["proposal"]["quantity"] == 2
         assert calls == [MESSAGES[0][0], MESSAGES[0][0]]
+
+
+def test_http_503_exhaustion_preserves_draft_then_manual_retry_recovers(store, monkeypatch):
+    calls = []
+    monkeypatch.setattr("scripts.run_web.sleep", lambda _: None)
+
+    def extract(message, current):
+        calls.append(message)
+        if len(calls) <= 3:
+            raise ProviderError("http_503")
+        return fixture_extractor(message, current)
+
+    capped = CappedExtractor(extract, 4)
+    with client_for(store, capped) as client:
+        draft = new_draft(client)
+        path = f"/api/drafts/{draft['draft_id']}"
+        response = client.post(
+            path + "/message",
+            json={"message": MESSAGES[0][0], "expected_revision": draft["revision"]},
+        ).json()
+        view = response["view"]
+        assert view["phase"] == "extraction_error" and view["can_retry"]
+        assert view["proposal"] == draft["proposal"] and not view["can_confirm"]
+        assert view["input"]["transcript"] == MESSAGES[0][0]
+        assert len(calls) == 3 and capped.remaining == 1
+        recovered = client.post(
+            path + "/retry",
+            json={"turn_id": view["input"]["turn_id"], "expected_revision": view["revision"]},
+        ).json()["view"]
+        assert recovered["phase"] == "clarify" and recovered["proposal"]["quantity"] == 2
+        assert calls == [MESSAGES[0][0]] * 4
+        assert store.conn.execute("SELECT COUNT(*) FROM submissions").fetchone()[0] == 0
 
 
 def test_unknown_save_is_locked_across_http_refresh_then_recovers_receipt(store):

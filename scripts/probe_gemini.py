@@ -7,8 +7,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from time import monotonic
 
-from bolparchi.fields import SCHEMA_VERSION
-from bolparchi.gemini import ENDPOINT, MODEL, PROMPT_VERSION, GeminiExtractor, ProviderError
+from bolparchi.extraction import ENDPOINT, MODEL, PROMPT_VERSION, SCHEMA_VERSION, GeminiExtractor
+from bolparchi.provider_http import ProviderError
 from bolparchi.validation import validate_extraction, validate_message
 from scripts.prepare_provider_probes import CURRENT, ROOT
 

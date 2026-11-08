@@ -7,7 +7,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from time import monotonic
 
-from bolparchi.gemini import ENDPOINT, MODEL, MAX_RESPONSE_BYTES, GeminiExtractor
+from bolparchi.extraction import ENDPOINT, MODEL, PROMPT_VERSION, SCHEMA_VERSION, GeminiExtractor
+from bolparchi.gemini import MAX_RESPONSE_BYTES
 from bolparchi.provider_http import ProviderError, request_bytes, validate_key
 from bolparchi.provider_json import strict_json
 from bolparchi.validation import validate_extraction, validate_message
@@ -52,6 +53,8 @@ def run_diagnostic(api_key, case, *, max_requests, transport=None, on_progress=N
     report = {
         "started_at": datetime.now(timezone.utc).isoformat(),
         "model": MODEL,
+        "prompt_version": PROMPT_VERSION,
+        "schema_version": SCHEMA_VERSION,
         "endpoint": ENDPOINT,
         "request_limit": max_requests,
         "automatic_retries": 0,

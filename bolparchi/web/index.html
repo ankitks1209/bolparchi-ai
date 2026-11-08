@@ -15,7 +15,7 @@
   <dialog id="sidebar" class="sidebar" aria-labelledby="sidebar-title">
     <div class="sidebar-brand brand-lockup"><button id="sidebar-close" class="logo-toggle" aria-label="Close sidebar" title="Close sidebar" autofocus><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span></button><span class="wordmark">bolparchi<span aria-hidden="true">.</span></span></div>
     <div class="sidebar-body">
-      <p class="eyebrow">YOUR SERVICE DESK</p><h2 id="sidebar-title">Workspace</h2>
+      <p class="eyebrow">Your service desk</p><h2 id="sidebar-title">Workspace</h2>
       <div class="sidebar-context"><p id="sidebar-job">No job selected</p><p id="sidebar-state" class="small muted">Choose a job to begin.</p></div>
       <nav aria-label="Workspace shortcuts">
         <button id="nav-jobs" class="sidebar-link"><span aria-hidden="true">01</span> Choose a job</button>
@@ -23,12 +23,12 @@
         <button id="nav-review" class="sidebar-link" hidden><span aria-hidden="true">02</span> Review the record</button>
         <button id="nav-receipt" class="sidebar-link" hidden><span aria-hidden="true">03</span> Saved receipt</button>
       </nav>
-      <button id="nav-examples" class="sidebar-link sidebar-example" hidden>Try the fixture messages <span aria-hidden="true">↗</span></button>
+      <button id="nav-examples" class="sidebar-link sidebar-example" hidden>Try the fixture messages</button>
       <div class="sidebar-bottom"><p class="small">Speak naturally.<br>Save deliberately.</p><p class="small muted">Every update stays a draft until you review and confirm it.</p><p id="sidebar-mode" class="sidebar-mode"></p></div>
     </div>
   </dialog>
   <main id="main">
-    <div id="page-heading" class="page-heading"><p class="eyebrow">THE SERVICE SHEET</p><h1>A clear record.<br>One update at a time.</h1><p class="intro">Visit ki baat, seedha record mein. Review every change before saving.</p></div>
+    <div id="page-heading" class="page-heading"><p class="eyebrow">The service sheet</p><h1>Repair visit.<br>Clear record.</h1><p class="intro">Bolo. Dekho. Confirm karo. Turn a repair update into a record you can check.</p></div>
     <p id="mode" class="mode-note" role="status">Connecting to the local app…</p>
     <section id="picker" class="picker" aria-labelledby="picker-title">
       <h2 id="picker-title">Choose a job</h2>
@@ -37,10 +37,10 @@
       <p id="jobs-status" role="status"></p><button id="reload-jobs" class="secondary" hidden>Reload jobs</button>
     </section>
     <section id="sheet" class="sheet" aria-labelledby="job-title" hidden>
-      <header class="sheet-heading"><div class="job-identity"><div class="job-stamp"><p class="stamp-label">JOB NO.</p><p id="job-number"></p></div><div class="job-description"><p class="eyebrow">VISIT / SERVICE RECORD</p><h1 id="job-title"></h1><p id="customer" class="muted"></p></div></div><span id="record-state" class="state-tag">Draft · not saved</span></header>
+      <header class="sheet-heading"><div class="job-identity"><div class="job-stamp"><p class="stamp-label">Job no.</p><p id="job-number"></p></div><div class="job-description"><p class="eyebrow">Visit / Service record</p><h1 id="job-title"></h1><p id="customer" class="muted"></p></div></div><span id="record-state" class="state-tag">Draft · not saved</span></header>
       <div class="sheet-body">
         <section class="composer" aria-labelledby="input-title">
-          <p class="section-number">01 / VISIT UPDATE</p><h3 id="input-title">What happened at the visit?</h3>
+          <p class="section-number">01 / Visit update</p><h3 id="input-title">What happened at the visit?</h3>
           <p class="muted small">Type in Hinglish or English. Add corrections in the same box.</p>
           <div id="voice-controls" class="voice-controls" hidden>
             <button id="record" class="record-button"><span aria-hidden="true">●</span> Record update</button>
@@ -53,14 +53,14 @@
             <label for="message">Your update</label>
             <textarea id="message" rows="5" placeholder="Motor kharab hai. Ek motor chahiye…" aria-describedby="input-help count"></textarea>
             <div class="input-meta"><span id="input-help">Up to 2,000 characters</span><span id="count">0 / 2,000</span></div>
-            <button id="submit-message" type="submit" class="primary">Review update <span aria-hidden="true">↗</span></button>
+            <button id="submit-message" type="submit" class="primary">Review update</button>
           </form>
           <div id="examples" hidden><details><summary>Try a fixture message</summary><p class="small muted">These exact messages use scripted responses. They do not test AI.</p><div id="example-buttons"></div></details></div>
           <p id="voice-note" class="voice-note">Voice is unavailable in this session. Type your update.</p>
           <details id="transcript-details" hidden><summary>Last submitted message</summary><p id="transcript" class="transcript"></p></details>
         </section>
         <section class="review" aria-labelledby="review-title">
-          <p class="section-number">02 / REVIEW THE RECORD</p><h3 id="review-title">Service details</h3>
+          <p class="section-number">02 / Review the record</p><h3 id="review-title">Service details</h3>
           <p class="muted small">Only details from your updates appear here.</p>
           <dl id="fields"></dl>
           <div class="readback-controls"><button id="listen" class="secondary" hidden>Listen to review</button><button id="stop-readback" class="secondary" hidden>Stop read-back</button><p id="playback-status" class="small muted" role="status"></p></div>
@@ -69,7 +69,7 @@
           <div id="state-panel" class="state-panel" role="status" aria-live="polite" aria-atomic="true"><p id="state-title"></p><p id="state-message"></p></div>
           <div id="recovery-actions" class="action-row"><button id="retry" class="secondary" hidden>Retry extraction</button><button id="refresh" class="secondary" hidden>Refresh draft</button><button id="apply-mismatch" class="secondary" hidden>Apply to selected job</button><button id="discard-mismatch" class="secondary" hidden>Discard message</button><button id="check-save" class="primary" hidden>Check save status</button><button id="retry-save" class="secondary" hidden>Retry same save</button></div>
           <p id="notice" class="notice" role="alert" hidden></p>
-          <div id="save-controls"><p id="review-help" class="small muted">Nothing is saved until you confirm the full record.</p><button id="save" class="primary save" disabled>Confirm and save <span aria-hidden="true">↗</span></button></div>
+          <div id="save-controls"><p id="review-help" class="small muted">Nothing is saved until you confirm the full record.</p><button id="save" class="primary save" disabled>Confirm and save</button></div>
           <div id="receipt" class="receipt" hidden><h3>Saved to this device</h3><p class="small muted">Receipt</p><p id="receipt-id"></p><p id="receipt-time" class="small muted"></p></div>
         </section>
       </div>

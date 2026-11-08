@@ -64,6 +64,10 @@ Optional: direct field editor, cross-session draft resume, noise comparison, hos
 
 Accepted 31 October: Ankit delegated the initial recording choice. Browser recordings use at most 30 seconds of mono, 16 kHz, 16-bit PCM WAV (maximum 960,044 bytes with the canonical 44-byte header). Stop at the limit; reject malformed/oversize uploads before calling speech APIs. Keep raw audio in memory only and release it after completion/cancellation; retain the validated transcript in the existing draft. Typing remains available after microphone/recording failure. Gnani's current REST reference now lists a 30-second maximum, superseding the older 60-second note. Human acoustic quality still requires a live check.
 
+Accepted 6 November, issue #1: the live browser extraction runner may retry HTTP 503 at most twice after the initial attempt, with 1s/2s backoff and a 30-second overall extraction wait budget. Each attempt uses the launch-local allowance. Cancellation/newer turns are checked before another attempt; late output cannot mutate the draft. Other errors are not automatically retried. Exhaustion preserves the message/draft and offers explicit retry. This is independent of the durable save-delivery retry budget in AC-09 and of speech transcription time. See [ADR-011](../agent_docs/decisions/011-bounded-extraction-recovery.md).
+
+Implementation boundary, 6 November, issue #2: the provider wire response accounts for all five fields with set/clear/not_mentioned/uncertain decisions and verbatim supporting quotes. Python converts it to the unchanged canonical extraction envelope above. Quotes constrain text provenance but do not prove semantic completeness. See [ADR-012](../agent_docs/decisions/012-field-decisions.md).
+
 ## OPEN QUESTIONS
 
 - Exact extraction model/version, supported reasoning settings, SDK/API version and prompt/schema version: verify official docs and real account probe. `gemini-3.8-flash` remains the PLAN candidate, not validated access or a mandatory hardcoded choice.

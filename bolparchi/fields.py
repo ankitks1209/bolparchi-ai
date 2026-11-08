@@ -7,6 +7,7 @@ from types import MappingProxyType
 @dataclass(frozen=True)
 class FieldSpec:
     json_type: str
+    description: str = ""
     required: bool = False
     patchable: bool = True
     choices: tuple[str, ...] = ()
@@ -19,21 +20,46 @@ class FieldSpec:
 FIELD_SPECS = MappingProxyType(
     {
         "job_id": FieldSpec("string", required=True, patchable=False, pattern=r"\d{1,6}"),
-        "diagnosis": FieldSpec("string", required=True, max_length=500),
-        "status": FieldSpec("string", required=True, choices=("completed", "pending")),
-        "part_needed": FieldSpec("string", max_length=120),
-        "quantity": FieldSpec("integer", minimum=1, maximum=20),
-        "follow_up": FieldSpec("string", max_length=500),
+        "diagnosis": FieldSpec(
+            "string",
+            description="The stated fault or repair finding.",
+            required=True,
+            max_length=500,
+        ),
+        "status": FieldSpec(
+            "string",
+            description="Whether the repair work is complete or remains pending.",
+            required=True,
+            choices=("completed", "pending"),
+        ),
+        "part_needed": FieldSpec(
+            "string",
+            description="The explicitly requested component, even if it is already in the current record.",
+            max_length=120,
+        ),
+        "quantity": FieldSpec(
+            "integer",
+            description="The final explicitly stated count after corrections; never choose between uncertain alternatives.",
+            minimum=1,
+            maximum=20,
+        ),
+        "follow_up": FieldSpec(
+            "string",
+            description="A stated next action or return visit, including when to come back. For example, कल शाम आना है means return tomorrow evening and MUST be included here when spoken. Preserve the stated wording, do not book an appointment.",
+            max_length=500,
+        ),
     }
 )
 
 MAX_MESSAGE_LENGTH = 2000
-SCHEMA_VERSION = "bolparchi-extraction-v1"
+SCHEMA_VERSION = "bolparchi-extraction-v2"
 
 
 def field_schema(spec: FieldSpec) -> dict:
     """Model proposals contain normalized values; null never means deletion."""
     schema = {"type": spec.json_type}
+    if spec.description:
+        schema["description"] = spec.description
     if spec.choices:
         schema["enum"] = list(spec.choices)
     if spec.minimum is not None:

@@ -2,7 +2,7 @@
 
 **Bolo. Dekho. Confirm karo.**
 
-> **Work in progress — local prototype.** Recording, review, corrections and receipt-based saving are implemented. The offline demo uses scripted AI responses; real Gemini extraction and a complete live voice walkthrough are still being verified. This is not a production service.
+> **Work in progress — local prototype.** Recording, review, corrections and receipt-based saving are implemented. The offline demo uses scripted AI responses; real Gemini extraction and a user-operated microphone-to-receipt task have passed scoped checks. This is not a production service.
 
 A voice-assisted service-update prototype for repair technicians. The planned app
 turns a Hinglish update into a reviewed record, asks about missing information,
@@ -10,20 +10,20 @@ and saves only after explicit confirmation.
 
 ## Current status
 
-Product implementation started on 21 October 2026. The field contract and an offline
-typed workflow now support clarification, corrections, guarded message completion,
-wrong-job apply/discard, cancellation, review and the existing explicit confirm/save path.
-Separate Prisma transcription and Timbre speech probes have succeeded. Gemini and Gnani
-adapters now have offline tests; the new WAV decoder also matches a retained real response.
-Speech now enters the guarded backend workflow, with stale-result rejection and empty-input
-fallback. Gemini metadata access succeeds, but generation remains unverified after HTTP 503
-capacity/demand responses. Backend save recovery now retains submission identity, bounds
-retries and keeps uncertain saves locked. A local FastAPI/plain-JavaScript browser slice now
-connects job selection, typed/recorded updates, review and receipt-based saving to real SQLite.
-Browser capture now produces bounded 30-second WAV recordings; read-back playback stops when
-the review changes. The offline walkthrough uses a fixed transcript, scripted extraction and
-a test tone. Its passing checks do not establish speech or LLM accuracy. A complete task with
-real providers remains pending. See [current evidence](agent_docs/status.md).
+The local FastAPI/plain-JavaScript app connects job selection, typed/recorded updates,
+clarification, correction, read-back and explicit receipt-based saving to SQLite.
+On 5 November a live typed browser task completed three Gemini extractions, real Gnani
+read-back playback and a confirmed save with quantity 1. Offline checks pass (424 tests).
+
+The retained human recording now passes real Gnani transcription, Gemini extraction,
+clarification, Gnani read-back generation and receipt-backed saving. Ankit also completed a fresh browser microphone task and reported clear recording/playback;
+its saved quantity-1 record is verified. Broader extraction/speech accuracy remains unverified.
+The frozen evaluation produced five exact matches and one HTTP 503; a separate
+unchanged recheck of the unavailable uncertainty case passed. These small samples
+do not establish general accuracy or service availability.
+The fixture walkthrough uses a fixed transcript, scripted extraction and a test tone;
+it makes no provider requests. See [evaluation](docs/EVALUATION.md) and
+[current evidence](agent_docs/status.md) for the successes, failures and remaining gates.
 
 ## Project files
 
