@@ -10,6 +10,6 @@ Gnani Prisma transcribes the recording (REST /stt/v3, default Prisma v2.5, Hindi
 
 Evidence, small and exact: 424 offline tests pass. One live typed browser task completed three Gemini extractions, real Timbre playback, and a confirmed save with quantity 1 (receipt 56956688-5940-45ce-8d73-9aebf1f66e15, from messages ending in quantity correction "Do nahi, ek motor"). One retained human recording passed STT, extraction, read-back, and saved receipt. One fresh microphone task passed with clear playback reported and receipt 5bb647c0 verified for quantity 1 and follow-up kal shaam. Frozen evaluation: six cases attempted once each, five exact patch matches, one HTTP 503, zero semantic mismatches among returned patches; a separate unchanged recheck of the unavailable uncertainty case passed. A previous prompt omitted a stated follow-up and validation blocked the save; human review remains essential. These are scoped runs, not general accuracy or availability.
 
-Limits: fictional data, one user and one device, no technician study, no time-savings claim, intermittent provider 503s, no public demo or uncut video yet.
+Limits: fictional data, one user and one device, no technician study, no time-savings claim, intermittent provider 503s. A demo video is linked in the repo README.
 
-I, Ankit Singh, own product decisions, architecture review, and acceptance, and I ran the live microphone task. Codex assisted implementation, tests, and docs under my review. Source: github.com/ankitks1209/bolparchi-ai.
+I, Ankit Singh, directed the work and ran the acceptance tasks. Codex and Cline (AI coding tools) assisted with implementation, tests and docs. Source: github.com/ankitks1209/bolparchi-ai.
