@@ -41,3 +41,6 @@ video/
 *.mp4
 *.mov
 .DS_Store
+
+.agents/skills/brag/
+brag-output/

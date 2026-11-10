@@ -1,5 +1,7 @@
 # BolParchi AI — Service Update Agent
 
+> Read the one-page pitch: [SOLUTION_PITCH.md](SOLUTION_PITCH.md).
+
 **Bolo. Dekho. Confirm karo.**
 
 > **Work in progress — local prototype.** Recording, review, corrections and receipt-based saving are implemented. The offline demo uses scripted AI responses; real Gemini extraction and a user-operated microphone-to-receipt task have passed scoped checks. This is not a production service.
