@@ -40,7 +40,7 @@ artifacts/
 video/
 *.mp4
 *.mov
-.DS_Store
+skills-lock.json
 
 .agents/skills/brag/
 brag-output/
